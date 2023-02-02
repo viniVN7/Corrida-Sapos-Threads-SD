@@ -57,9 +57,12 @@ public class Corredor extends Thread {
         System.out.println(mensagem);
     }
 
-    public void posicaoSapoChegada() {
-        App.posicoes.add(this.nome);
-        System.out.println("O corredor: " + this.nome + " - chegou em " + (App.posicoes.indexOf(this.nome) + 1) + "º lugar");
+    private synchronized void posicaoSapoChegada() {
+        synchronized(App.posicoes) {
+            App.posicoes.add(this.nome);
+            System.out.println("O corredor: " + this.nome + " - chegou em " + (App.posicoes.indexOf(this.nome) + 1) + "º lugar");
+        }
+        
     }
 
     public void setNome(String nome) {
